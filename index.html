@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OzoraStore - Tampilan Landscape Dashboard</title>
+    
+    <script src="https://cdn.tailwindcss.com" onerror="document.getElementById('cdn-warning').style.display = 'block';"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0f1012',      
+                            card: '#1e2024',      
+                            input: '#2a2c33',     
+                            primary: '#facc15',   
+                            primaryHover: '#eab308',
+                            textMuted: '#9ca3af',
+                            border: '#374151'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <div id="cdn-warning" style="display: none; background-color: #ef4444; color: white; padding: 10px; text-align: center; font-size: 14px; position: fixed; top: 0; width: 100%; z-index: 9999;">
+        <strong>Peringatan:</strong> Styling CSS gagal dimuat. Pastikan koneksi internet aktif.
+    </div>
+
+    <nav class="nav-glass fixed w-full top-0 z-50 border-b border-gray-800">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div class="bg-brand-primary p-2 rounded-lg text-black shadow-[0_0_15px_rgba(250,204,21,0.3)]">
+                    <i class="fas fa-bolt text-lg"></i>
+                </div>
+                <span class="font-extrabold text-xl tracking-tight">Ozora<span class="text-brand-primary">Store</span></span>
+            </div>
+            <div class="flex items-center gap-4 text-brand-textMuted">
+                <button class="hover:text-white transition p-2"><i class="fas fa-search"></i></button>
+                <div class="w-px h-5 bg-gray-700 hidden md:block"></div>
+                <button class="hover:text-white transition p-2"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="w-full mt-20">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8">
+            <div class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-4 md:p-6 flex flex-row items-center gap-5 md:gap-8 relative overflow-hidden h-32 md:h-40">
+                <img id="headerBanner" src="" alt="Game Banner" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
+                
+                <img id="headerLogo" src="" alt="Game Logo" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl border-2 border-brand-primary z-10 relative object-cover bg-brand-dark shadow-xl">
+                
+                <div class="z-10 flex-1">
+                    <h1 id="headerTitle" class="text-2xl md:text-4xl font-extrabold text-white mb-2 md:mb-3 tracking-tight">Loading...</h1>
+                    <div class="flex items-center gap-2 text-xs text-brand-textMuted bg-brand-dark/80 px-3 py-1.5 rounded-full inline-flex border border-gray-700 backdrop-blur">
+                        <i class="fas fa-shield-check text-green-500"></i>
+                        <span id="headerTag" class="font-medium text-gray-300">Resmi & Instan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full mb-20 mt-6 flex-1">
+        
+        <div class="lg:col-span-3 flex flex-col gap-6">
+            <section class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-5 relative">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="step-badge">1</div>
+                    <h2 class="text-lg font-bold">Pilih Game</h2>
+                </div>
+                <div id="gamesGrid" class="grid grid-cols-2 gap-3">
+                    </div>
+            </section>
+
+            <section class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-5 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <div class="step-badge">2</div>
+                    <h2 class="text-lg font-bold">Data Akun</h2>
+                </div>
+                
+                <div id="dynamicInputs" class="flex flex-col gap-3 relative z-10">
+                    </div>
+                
+                <div class="mt-3 flex items-start gap-2 text-[11px] text-brand-textMuted bg-brand-input/50 p-3 rounded-xl border border-gray-800">
+                    <i class="fas fa-info-circle mt-0.5 text-brand-primary"></i>
+                    <p id="inputHelper" class="leading-relaxed">Petunjuk mengisi ID.</p>
+                </div>
+
+                <div class="mt-4">
+                    <button id="btnVerify" onclick="verifyAccount()" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition-colors flex items-center justify-center gap-2">
+                        <i class="fas fa-search"></i> Cek Akun
+                    </button>
+                    <div id="verifyStatus" class="hidden flex-col items-start gap-1 text-sm bg-gray-800/50 p-3 rounded-xl border border-gray-700 w-full mt-3">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            <section class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-5 relative h-full">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="step-badge">3</div>
+                    <h2 class="text-xl font-bold">Pilih Nominal Top Up</h2>
+                </div>
+                <div id="itemsGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                    </div>
+            </section>
+        </div>
+
+        <div class="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 h-fit">
+            <section class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-5 relative">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="step-badge">4</div>
+                    <h2 class="text-lg font-bold">Pembayaran</h2>
+                </div>
+                <div id="paymentsList" class="flex flex-col gap-3 max-h-[300px] overflow-y-auto pr-1">
+                    </div>
+            </section>
+
+            <section class="bg-brand-card rounded-2xl shadow-lg border border-brand-border p-5 relative border-t-4 border-t-brand-primary">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="step-badge">5</div>
+                    <h2 class="text-lg font-bold">Checkout</h2>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-500 text-sm"></i>
+                        </div>
+                        <input type="email" placeholder="Email untuk Invoice (Opsional)" class="input-base text-sm pl-10 py-2.5">
+                    </div>
+                </div>
+                
+                <div class="bg-brand-input rounded-xl p-4 border border-gray-800 mb-5">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs text-brand-textMuted">Harga Item</span>
+                        <span id="summaryPrice" class="text-sm font-medium text-white">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs text-brand-textMuted">Biaya Admin</span>
+                        <span id="summaryFee" class="text-sm font-medium text-white">Rp 0</span>
+                    </div>
+                    <hr class="border-gray-700 my-3 border-dashed">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-semibold">Total</span>
+                        <span id="totalPrice" class="text-xl font-black text-brand-primary">Rp 0</span>
+                    </div>
+                </div>
+
+                <button id="btnCheckout" onclick="processCheckout()" disabled
+                        class="w-full bg-brand-primary hover:bg-brand-primaryHover disabled:bg-gray-800 disabled:text-gray-500 disabled:cursor-not-allowed text-black font-bold py-3.5 rounded-xl transition-all shadow-[0_0_15px_rgba(250,204,21,0.2)] disabled:shadow-none text-base flex justify-center items-center gap-2">
+                    <i class="fas fa-shopping-cart"></i> Konfirmasi Pesanan
+                </button>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-brand-card border-t border-gray-800 mt-auto">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8 py-6 text-center flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-left">
+                <h3 class="font-bold text-lg mb-0.5">Ozora<span class="text-brand-primary">Store</span></h3>
+                <p class="text-xs text-brand-textMuted">Platform Top Up Game Tercepat & Terpercaya.</p>
+            </div>
+            <div class="text-brand-textMuted text-xs">
+                &copy; 2026 Ozorastore. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div id="customAlert" class="hidden fixed inset-0 z-[200] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeCustomAlert()"></div>
+        <div class="bg-brand-card w-full max-w-sm rounded-2xl shadow-2xl border border-gray-700 relative z-10 transform transition-all duration-300 p-6 text-center">
+            <div class="w-16 h-16 bg-brand-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/30">
+                <i class="fas fa-info-circle text-2xl text-brand-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Informasi</h3>
+            <p id="customAlertMessage" class="text-sm text-gray-300 mb-6">Pesan alert disini</p>
+            <button onclick="closeCustomAlert()" class="w-full bg-brand-primary hover:bg-brand-primaryHover text-black font-bold py-3 rounded-xl transition-colors">
+                Mengerti
+            </button>
+        </div>
+    </div>
+
+    <div id="successNotification" class="hidden fixed inset-0 z-[300] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm transition-opacity" onclick="closeSuccessNotification()"></div>
+        <div class="bg-brand-card w-full max-w-md rounded-2xl shadow-2xl border-t-4 border-t-green-500 relative z-10 transform scale-95 opacity-0 transition-all duration-300 p-8 text-center" id="successContent">
+            <div class="relative w-24 h-24 mx-auto mb-6">
+                <div class="absolute inset-0 bg-green-500 rounded-full opacity-20 animate-ping"></div>
+                <div class="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto border-2 border-green-500 relative z-10">
+                    <i class="fas fa-check text-5xl text-green-500"></i>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-black text-white mb-2 tracking-tight">Pembayaran Berhasil!</h3>
+            <p class="text-sm text-gray-300 mb-6 leading-relaxed">
+                Terima kasih! Pesanan Anda telah kami terima dan sedang diproses oleh sistem. 
+                Mohon tunggu maksimal <span class="font-bold text-brand-primary bg-brand-primary/10 px-2 py-0.5 rounded">24 jam</span> untuk item masuk ke akun Anda.
+            </p>
+            
+            <div class="bg-brand-input rounded-xl p-4 mb-6 text-left border border-gray-700 flex justify-between items-center">
+                <div>
+                    <p class="text-xs text-brand-textMuted mb-1">Nomor Transaksi (Simpan)</p>
+                    <p class="text-sm font-mono text-white font-bold" id="orderIdDisplay">TRX-...</p>
+                </div>
+                <button class="text-brand-primary hover:text-brand-primaryHover" onclick="navigator.clipboard.writeText(document.getElementById('orderIdDisplay').innerText); this.innerHTML='<i class=\'fas fa-check\'></i>'">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+            
+            <button onclick="closeSuccessNotification()" class="w-full bg-brand-primary hover:bg-brand-primaryHover text-black font-bold py-3.5 rounded-xl transition-all shadow-[0_0_15px_rgba(250,204,21,0.2)] text-base">
+                Kembali ke Beranda
+            </button>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="bg-brand-card w-full max-w-md rounded-2xl shadow-2xl border border-gray-700 relative z-10 transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            
+            <div class="p-6 text-center border-b border-gray-800 relative overflow-hidden rounded-t-2xl">
+                <div class="absolute inset-0 bg-gradient-to-b from-green-500/10 to-transparent"></div>
+                <div class="w-14 h-14 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3 relative z-10 border border-green-500/30">
+                    <i class="fas fa-check text-xl text-green-500"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white relative z-10">Detail Pembelian</h3>
+                <p class="text-xs text-brand-textMuted relative z-10 mt-1">Pastikan data akun sudah benar.</p>
+            </div>
+
+            <div class="p-6">
+                <div class="space-y-2 bg-brand-input rounded-xl p-4 border border-gray-800 text-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="text-brand-textMuted">Game</span>
+                        <span id="modalGameName" class="font-medium text-white"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-brand-textMuted">Nickname</span>
+                        <span id="modalName" class="font-bold text-green-400"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-brand-textMuted">User ID</span>
+                        <span id="modalId" class="font-medium text-gray-300"></span>
+                    </div>
+                    <hr class="border-gray-700 border-dashed my-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-brand-textMuted">Item</span>
+                        <span id="modalItem" class="font-bold text-brand-primary"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-brand-textMuted">Metode</span>
+                        <span id="modalPayment" class="font-medium text-white uppercase"></span>
+                    </div>
+                    <hr class="border-gray-700 border-dashed my-2">
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="font-semibold">Total Harga</span>
+                        <span id="modalTotal" class="text-lg font-black text-brand-primary bg-gray-800 px-2 py-1 rounded"></span>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-6">
+                    <button id="btnCancelCheckout" onclick="closeModal()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-xl transition-colors text-sm">
+                        Batal
+                    </button>
+                    <button id="btnProceedPay" onclick="proceedToPayment()" class="flex-[2] bg-brand-primary hover:bg-brand-primaryHover text-black font-bold py-3 rounded-xl transition-colors shadow-lg text-sm flex justify-center items-center gap-2">
+                        Bayar Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
